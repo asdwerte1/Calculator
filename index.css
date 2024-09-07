@@ -1,3 +1,11 @@
+/* Font */
+.orbitron-text {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 body {
     background-color: #ffeef9;
     display: flex;
@@ -10,7 +18,34 @@ body {
     background-color: #ababab;
     border: solid 5px #333;
     border-radius: 15px;
-    min-width: 400px;
-    max-width: 700px;
-    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Screen area */
+
+#display {
+    background-color: #9fb09f;
+    border: solid thin black;
+    margin: 10px auto;
+    width: 80%;
+}
+
+#display-text {
+    text-align: end;
+    font-size: 1.8em;
+    margin: 5px 2px;
+}
+
+/* button area */
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.calc-button {
+    width: 15%;
+    margin: 5%;
 }
