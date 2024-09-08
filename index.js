@@ -1,6 +1,5 @@
 /*
     TODO:
-    Add ability to type using keys
     trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
 */
 
@@ -113,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     number.removeAttribute("disabled");
                 }
             }
+            document.getElementById("decimal").removeAttribute("disabled");
         });
     }
 
@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (const number of numbers) {
                     number.setAttribute("disabled", "disabled");
                 }
+                document.getElementById("decimal").setAttribute("disabled", "disabled");
             }
         }
 
@@ -170,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 number.removeAttribute("disabled");
             }
         }
+        document.getElementById("decimal").removeAttribute("disabled");
     });
 
     document.getElementById("back").addEventListener("click", () => {

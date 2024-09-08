@@ -73,12 +73,12 @@ body {
     color: black;
 }
 
-.number:disabled {
+.number:disabled, #decimal:disabled {
     background-color: #6f6f6f;
     color: #494949;
 }
 
-.number:disabled:hover {
+.number:disabled:hover, #decimal:disabled:hover {
     border-color: #131313;
 }
 
