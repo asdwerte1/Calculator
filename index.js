@@ -52,6 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
         text.innerHTML += letter;
     }
 
+    function removeActive() {
+        for (const operator of operators) {
+            if (operator.classList.contains("active")) {
+                operator.classList.remove("active");
+            }
+        }
+    }
+
     const welcomeMessage = "WELCOME";
     for (let i = 0; i < welcomeMessage.length; i++) {
         setTimeout(() => {
@@ -66,6 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const number of numbers) {
         number.addEventListener("click", () => {
 
+            removeActive();
+
             if (text.innerHTML.length < maxLength) {
                 text.innerHTML += number.textContent.trim()
             }
@@ -74,40 +84,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const operator of operators) {
         operator.addEventListener("click", () => {
-
-            if (callStack.stack.length === 0 && text.innerHTML.length !== 0) { // Ensure call stack is empty but there is a number to operate on
-                const numberToAdd = Number(text.innerHTML);
-                callStack.addToStack(numberToAdd);
-                callStack.addToStack(operator.textContent.trim());
-                text.innerHTML = "";
-                operator.classList.add("active");
-            } // Add else to perform action if stack has contnet - this will cause an operation to run and show result in the screen
-            // I.e. if a user presses add, then another number, then times, this will perform the add in the call stack
-
-        })
+            const numberToAdd = Number(text.innerHTML);
+            callStack.addToStack(numberToAdd);
+            callStack.addToStack(operator.textContent.trim());
+            text.innerHTML = "";
+            operator.classList.add("active");
+        });
     }
 
     document.getElementById("equals").addEventListener("click", () => {
-        if (callStack.stack.length !== 0) {
-            const num1 = callStack.stack[0];
-            const operator = callStack.stack[1];
-            const num2 = Number(text.textContent.trim());
-            const result = calculator.operate(num1, num2, operator);
-            callStack.stack = [];
+        callStack.addToStack(Number(text.innerHTML));
+        text.innerHTML = "";
+        const ops = ["+", "-", "x", "÷"];
+        let result = 0;
+
+        callStack.stack.forEach(element => {
+            
+            if (ops.includes(element)) {
+                
+                const position = callStack.stack.indexOf(element);
+                const number1 = callStack.stack[position - 1];
+                const number2 = callStack.stack[position + 1];
+                result = calculator.operate(number1, number2, element);
+                callStack.stack = callStack.stack.slice(position + 1);
+                callStack.stack[0] = result;
+            }
+
             text.innerHTML = result;
             for (const number of numbers) {
                 number.setAttribute("disabled", "disabled");
             }
-
-            for (const operator of operators) {
-                if (operator.classList.contains("active")) {
-                    operator.classList.remove("active");
-                }
-            }
-
-            // Implement something to either prevent people from typing numbers after answer - or to clear answer when they start typing
-            // add functionality to prevent overflow of large answers - conver numbers > 9 digest to standard form
-        }
+        });
     });
 
     document.getElementById("clear").addEventListener("click", () => {
@@ -118,6 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 number.removeAttribute("disabled");
             }
         }
-    })
+    });
 });
 
