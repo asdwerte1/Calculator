@@ -21,7 +21,7 @@ const calculator = {
             case "+": return this.add(num1, num2);
             case "-": return this.subtract(num1, num2);
             case "x": return this.multiply(num1, num2);
-            case "÷" : return this.divide(num1, num2);
+            case "÷": return this.divide(num1, num2);
         }
     }
 }
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 callStack.addToStack(operator.textContent.trim());
                 text.innerHTML = "";
             } // Add else to perform action if stack has contnet - this will cause an operation to run and show result in the screen
-              // I.e. if a user presses add, then another number, then times, this will perform the add in the call stack
+            // I.e. if a user presses add, then another number, then times, this will perform the add in the call stack
 
         })
     }
@@ -94,14 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = calculator.operate(num1, num2, operator);
             callStack.stack = [];
             text.innerHTML = result;
-
-            // Implement something to either prevent people from typing numbers after answer - or to clear answer when they start typing
+            for (const number of numbers) {
+                number.setAttribute("disabled", "disabled");
+            }
         }
-    })
+    });
 
     document.getElementById("clear").addEventListener("click", () => {
         text.innerHTML = "";
         callStack.stack = [];
+        for (const number of numbers) {
+            if (number.hasAttribute("disabled")) {
+                number.removeAttribute("disabled");
+            }
+        }
     })
 });
 
