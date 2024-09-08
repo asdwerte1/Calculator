@@ -50,8 +50,8 @@ body {
 }
 
 .calc-button {
-    width: 15%;
     height: 67px;
+    width: 15%;
     margin: 5%;
     border: solid 4px #131313;
     border-radius: 35%;
