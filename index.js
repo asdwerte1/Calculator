@@ -1,7 +1,6 @@
 /*
     TODO:
     Incorportate standard form for large answers
-    Prevent divide by zero
     Add ability to type using keys
     Prevent multiple decimal points in one number
     trim trailing zeros from decimal numbers
@@ -116,21 +115,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     const position = callStack.stack.indexOf(element);
                     const number1 = callStack.stack[position - 1];
                     const number2 = callStack.stack[position + 1];
-                    result = calculator.operate(number1, number2, element);
-                    callStack.stack = callStack.stack.slice(position + 1);
-                    callStack.stack[0] = result;
+
+                    const zeroDivisionCheck = (element === "÷" && (number2 === 0 || number2 === 0.0)) ? true : false;
+
+                    if (!zeroDivisionCheck) {
+                        result = calculator.operate(number1, number2, element);
+                        callStack.stack = callStack.stack.slice(position + 1);
+                        callStack.stack[0] = result;
+                    } else {
+                        alert("Whoa there...maths hasn't quite sussed out dividing by zero yet!")
+                        result = null;
+                    }
                 }
             });
-            const strResult = String(result);
 
-            if (strResult.length > maxLength) {
-                text.innerHTML = result.toPrecision(maxLength - 1);
-            } else {
-                text.innerHTML = result;
-            }
+            if (result !== null) {
+                const strResult = String(result);
 
-            for (const number of numbers) {
-                number.setAttribute("disabled", "disabled");
+                if (strResult.length > maxLength) {
+                    text.innerHTML = result.toPrecision(maxLength - 1);
+                } else {
+                    text.innerHTML = result;
+                }
+
+                for (const number of numbers) {
+                    number.setAttribute("disabled", "disabled");
+                }
             }
         }
 
