@@ -101,7 +101,7 @@ body {
     color: #f2f2f2;
 }
 
-#back {
+#back, #sign, #percent {
     background-color: #00c936;
     color: #f2f2f2;
     font-size: 2em;

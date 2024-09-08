@@ -2,10 +2,8 @@
     TODO:
     Incorportate standard form for large answers
     Prevent divide by zero
-    Add +/- button
     Add ability to type using keys
     Prevent multiple decimal points in one number
-    add an undo button
     trim trailing zeros from decimal numbers
 */
 
@@ -151,5 +149,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("back").addEventListener("click", () => {
         const currnetContent = text.innerHTML;
         text.innerHTML = currnetContent.slice(0, currnetContent.length - 1);
-    })
+    });
+
+    document.getElementById("sign").addEventListener("click", () => {
+        const currnetContent = text.innerHTML;
+
+        if (currnetContent.charAt(0) === "-") {
+            text.innerHTML = currnetContent.substring(1);
+        } else {
+            text.innerHTML = "-" + currnetContent;
+        }
+    });
 });
