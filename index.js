@@ -1,8 +1,6 @@
 /*
     TODO:
     Incorportate standard form for large answers
-    Prevent equals performing an action when pressed early
-    Add decimal button
     Prevent divide by zero
     Add +/- button
 */
