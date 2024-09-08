@@ -2,8 +2,8 @@
     TODO:
     Incorportate standard form for large answers
     Add ability to type using keys
-    Prevent multiple decimal points in one number
-    trim trailing zeros from decimal numbers
+    Prevent multiple decimal points in one number 
+    trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
 */
 
 const calculator = {
@@ -81,14 +81,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const number of numbers) {
         number.addEventListener("click", () => {
-
             removeActive();
-
             if (text.innerHTML.length < maxLength) {
                 text.innerHTML += number.textContent.trim()
             }
-        })
+        });
     }
+
+    document.getElementById("decimal").addEventListener("click", () => {
+
+        const content = text.innerHTML;
+        const check = content.includes(".");
+        if (!check && content.length < maxLength - 1) {
+            text.innerHTML += ".";
+        }
+    })
 
     for (const operator of operators) {
         operator.addEventListener("click", () => {
