@@ -97,6 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
             for (const number of numbers) {
                 number.setAttribute("disabled", "disabled");
             }
+
+            // Implement something to either prevent people from typing numbers after answer - or to clear answer when they start typing
+            // add functionality to prevent overflow of large answers - conver numbers > 9 digest to standard form
         }
     });
 
