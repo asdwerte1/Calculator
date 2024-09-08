@@ -3,6 +3,7 @@
     Incorportate standard form for large answers
     Prevent divide by zero
     Add +/- button
+    Add ability to type using keys
 */
 
 const calculator = {
