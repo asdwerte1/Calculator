@@ -107,29 +107,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const ops = ["+", "-", "x", "÷"];
         let result = 0;
 
-        callStack.stack.forEach(element => {
+        if (callStack.stack.length >= 3) {
 
-            if (ops.includes(element)) {
+            callStack.stack.forEach(element => {
 
-                const position = callStack.stack.indexOf(element);
-                const number1 = callStack.stack[position - 1];
-                const number2 = callStack.stack[position + 1];
-                result = calculator.operate(number1, number2, element);
-                callStack.stack = callStack.stack.slice(position + 1);
-                callStack.stack[0] = result;
+                if (ops.includes(element)) {
+
+                    const position = callStack.stack.indexOf(element);
+                    const number1 = callStack.stack[position - 1];
+                    const number2 = callStack.stack[position + 1];
+                    result = calculator.operate(number1, number2, element);
+                    callStack.stack = callStack.stack.slice(position + 1);
+                    callStack.stack[0] = result;
+                }
+            });
+            const strResult = String(result);
+
+            if (strResult.length > maxLength) {
+                text.innerHTML = result.toPrecision(maxLength - 1);
+            } else {
+                text.innerHTML = result;
             }
-        });
-        const strResult = String(result);
 
-        if (strResult.length > maxLength) {
-            text.innerHTML = result.toPrecision(maxLength - 1);
-        } else {
-            text.innerHTML = result;
+            for (const number of numbers) {
+                number.setAttribute("disabled", "disabled");
+            }
         }
 
-        for (const number of numbers) {
-            number.setAttribute("disabled", "disabled");
-        }
     });
 
     document.getElementById("clear").addEventListener("click", () => {
