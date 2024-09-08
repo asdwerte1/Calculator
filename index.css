@@ -81,6 +81,10 @@ body {
     color: #f2f2f2;
 }
 
+.active {
+    border-color: #e6a800;
+}
+
 #clear {
     background-color: #bf1900;
     color: #f2f2f2;

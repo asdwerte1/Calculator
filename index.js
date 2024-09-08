@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 callStack.addToStack(numberToAdd);
                 callStack.addToStack(operator.textContent.trim());
                 text.innerHTML = "";
+                operator.classList.add("active");
             } // Add else to perform action if stack has contnet - this will cause an operation to run and show result in the screen
             // I.e. if a user presses add, then another number, then times, this will perform the add in the call stack
 
@@ -96,6 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
             text.innerHTML = result;
             for (const number of numbers) {
                 number.setAttribute("disabled", "disabled");
+            }
+
+            for (const operator of operators) {
+                if (operator.classList.contains("active")) {
+                    operator.classList.remove("active");
+                }
             }
 
             // Implement something to either prevent people from typing numbers after answer - or to clear answer when they start typing
