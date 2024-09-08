@@ -1,4 +1,9 @@
 /* Font */
+
+p {
+    margin: 0;
+}
+
 .orbitron-text {
   font-family: "Orbitron", sans-serif;
   font-optical-sizing: auto;
@@ -36,7 +41,7 @@ body {
 
 #display-text {
     text-align: end;
-    font-size: 1.8em;
+    font-size: 2.8em;
     margin: 5px 2px;
     height: 1.5em;
     padding: 10px 20px
@@ -56,7 +61,7 @@ body {
     border: solid 4px #131313;
     border-radius: 35%;
     font-weight: bold;
-    font-size: 1.1em
+    font-size: 1.8em
 }
 
 .calc-button:hover {
@@ -94,4 +99,10 @@ body {
 #equals {
     background-color: #e6a800;
     color: #f2f2f2;
+}
+
+#back {
+    background-color: #00c936;
+    color: #f2f2f2;
+    font-size: 2em;
 }

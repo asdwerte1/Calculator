@@ -4,6 +4,9 @@
     Prevent divide by zero
     Add +/- button
     Add ability to type using keys
+    Prevent multiple decimal points in one number
+    add an undo button
+    trim trailing zeros from decimal numbers
 */
 
 const calculator = {
