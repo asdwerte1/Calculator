@@ -147,4 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    document.getElementById("back").addEventListener("click", () => {
+        const currnetContent = text.innerHTML;
+        text.innerHTML = currnetContent.slice(0, currnetContent.length - 1);
+    })
 });
