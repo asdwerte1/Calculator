@@ -1,3 +1,8 @@
+/*
+    TODO:
+    
+*/
+
 const calculator = {
 
     add: function (num1, num2) {
@@ -46,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = document.getElementById("display-text");
     text.innerHTML = "";
     const delay = 300;
-    const maxLength = 9;
+    const maxLength = 12;
 
     function addLetter(letter) {
         text.innerHTML += letter;
@@ -99,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let result = 0;
 
         callStack.stack.forEach(element => {
-            
+
             if (ops.includes(element)) {
-                
+
                 const position = callStack.stack.indexOf(element);
                 const number1 = callStack.stack[position - 1];
                 const number2 = callStack.stack[position + 1];
@@ -109,12 +114,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 callStack.stack = callStack.stack.slice(position + 1);
                 callStack.stack[0] = result;
             }
-
-            text.innerHTML = result;
-            for (const number of numbers) {
-                number.setAttribute("disabled", "disabled");
-            }
         });
+        const strResult = String(result);
+
+        if (strResult.length > maxLength) {
+            text.innerHTML = result.toPrecision(maxLength - 1);
+        } else {
+            text.innerHTML = result;
+        }
+
+        for (const number of numbers) {
+            number.setAttribute("disabled", "disabled");
+        }
     });
 
     document.getElementById("clear").addEventListener("click", () => {
@@ -127,4 +138,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
