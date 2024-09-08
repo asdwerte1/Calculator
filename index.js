@@ -107,6 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
             callStack.addToStack(operator.textContent.trim());
             text.innerHTML = "";
             operator.classList.add("active");
+
+            for (const number of numbers) {
+                if (number.hasAttribute("disabled")) {
+                    number.removeAttribute("disabled");
+                }
+            }
         });
     }
 
