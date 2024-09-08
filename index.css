@@ -21,6 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    padding-bottom: 20px;
 }
 
 /* Screen area */
@@ -29,6 +30,7 @@ body {
     background-color: #9fb09f;
     border: solid thin black;
     margin: 10px auto;
+    margin-top: 30px;
     width: 80%;
 }
 
@@ -37,6 +39,7 @@ body {
     font-size: 1.8em;
     margin: 5px 2px;
     height: 1.5em;
+    padding: 10px 20px
 }
 
 /* button area */
@@ -49,4 +52,41 @@ body {
 .calc-button {
     width: 15%;
     margin: 5%;
+    border: solid 4px #131313;
+    border-radius: 35%;
+    font-weight: bold;
+    font-size: 1.1em
+}
+
+.calc-button:hover {
+    border-color: #f2f2f2;
+}
+
+.number {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.number:disabled {
+    background-color: #6f6f6f;
+    color: #494949;
+}
+
+.number:disabled:hover {
+    border-color: #131313;
+}
+
+.operator {
+    background-color: #01042b;
+    color: #f2f2f2;
+}
+
+#clear {
+    background-color: #bf1900;
+    color: #f2f2f2;
+}
+
+#equals {
+    background-color: #e6a800;
+    color: #f2f2f2;
 }
