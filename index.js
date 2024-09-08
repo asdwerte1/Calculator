@@ -1,8 +1,6 @@
 /*
     TODO:
-    Incorportate standard form for large answers
     Add ability to type using keys
-    Prevent multiple decimal points in one number 
     trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
 */
 
@@ -45,6 +43,11 @@ const callStack = {
     clearStack() {
         this.stack.length = 0;
     }
+}
+
+const numberKeys = [] // Used for key press detection
+for (let i = 0; i < 10; i++) {
+    numberKeys[i] = `${i}`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -175,6 +178,41 @@ document.addEventListener("DOMContentLoaded", () => {
             text.innerHTML = currnetContent.substring(1);
         } else {
             text.innerHTML = "-" + currnetContent;
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+
+        const key = event.key;
+
+        if (numberKeys.includes(key)) {
+            const keyElement = document.getElementById(key);
+            if (keyElement) {
+                keyElement.click();
+            }
+        } else if (key === "Enter") {
+            document.getElementById("equals").click();
+        } else if (key === "Backspace") {
+            document.getElementById("back").click();
+        } else if (key === ".") {
+            document.getElementById("decimal").click();
+        } else if (key === "c") {
+            document.getElementById("clear").click();
+        } else {
+            const operatorsMap = {
+                "+": "+",
+                "-": "-",
+                "*": "x",
+                "/": "÷"
+            };
+
+            if (operatorsMap[key]) {
+                if (key === "/") {
+                    event.preventDefault();
+                }
+                const operatorButton = Array.from(document.querySelectorAll(".operator")).find(op => op.textContent.trim() === operatorsMap[key]);
+                operatorButton.click();
+            }
         }
     });
 });
