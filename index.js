@@ -1,6 +1,7 @@
 /*
     TODO:
     trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
+    BUG FIX - negative signs missing from calcualtions when using keyboard entry
 */
 
 const calculator = {
@@ -118,6 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("equals").addEventListener("click", () => {
         callStack.addToStack(Number(text.innerHTML));
+        console.log(`FIRST PRINT: CALL STACK: ${callStack.stack}`);
+        console.log(`SECOND PRINT: CURRENT NUMBER: ${text.innerHTML}`);
         text.innerHTML = "";
         const ops = ["+", "-", "x", "÷"];
         let result = 0;
@@ -131,13 +134,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     const position = callStack.stack.indexOf(element);
                     const number1 = callStack.stack[position - 1];
                     const number2 = callStack.stack[position + 1];
+                    console.log(`THIRD PRINT: ${number1, number2}`);
 
                     const zeroDivisionCheck = (element === "÷" && (number2 === 0 || number2 === 0.0)) ? true : false;
 
                     if (!zeroDivisionCheck) {
                         result = calculator.operate(number1, number2, element);
+                        console.log(`FOURTH PRINT: RESULT: ${result}`);
                         callStack.stack = callStack.stack.slice(position + 1);
+                        console.log(`FIFTH PRINT: STACK: ${callStack.stack}`);
                         callStack.stack[0] = result;
+                        console.log(`SIXTH PRINT: STACK: ${callStack.stack}`);
                     } else {
                         alert("Whoa there...maths hasn't quite sussed out dividing by zero yet!")
                         result = null;
@@ -145,13 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
+            console.log(`SEVENTH PRINT: RESULT: ${result}`);
+
             if (result !== null) {
                 const strResult = String(result);
+                console.log(`EIGTH RESULT: STRING RESULT: ${strResult}`);
 
                 if (strResult.length > maxLength) {
                     text.innerHTML = result.toPrecision(maxLength - 1);
                 } else {
+
+                    console.log(`NINTH PRINT: RESULT: ${result} : STRING RESULT: ${strResult}`);
                     text.innerHTML = result;
+                    console.log(`TENTH PRINT: RESULT: ${result} : DISPLAY: ${text.innerHTML}`);
                 }
 
                 for (const number of numbers) {
@@ -206,6 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("decimal").click();
         } else if (key === "c") {
             document.getElementById("clear").click();
+        } else if (key === "m") {
+            document.getElementById("sign").click();
         } else {
             const operatorsMap = {
                 "+": "+",
