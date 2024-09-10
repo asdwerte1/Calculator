@@ -5,7 +5,7 @@
 */
 
 const calculator = {
-    
+
     add: function (num1, num2) {
         return num1 + num2;
     },
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("sign").addEventListener("click", () => {
         let currentContent = text.innerHTML;
 
-        if (lastOperation !== "equals" || currentContent === "0" || currentContent === "") { // Remove this if to unfix the bug
+        if (lastOperation !== "equals" || currentContent === "0" || currentContent === "") { // Remove this to unfix the bug
             if (currentContent === "0" || currentContent === "") {
                 currentContent = "-";
             } else if (currentContent === "-") {
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-        
+
         const key = event.key;
 
         if (numberKeys.includes(key)) {
