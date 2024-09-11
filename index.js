@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxLength = 12;
     let lastOperation = null;
 
-    function addLetter(letter) {
+    const addLetter = (letter) => {
         text.innerHTML += letter;
     }
 
-    function removeActive() {
+    const removeActive = () => {
         for (const operator of operators) {
             if (operator.classList.contains("active")) {
                 operator.classList.remove("active");
@@ -164,13 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`SEVENTH PRINT: RESULT: ${result}`);
 
             if (result !== null) {
-                function formatResult(num) {
+
+                const formatResult = (num) => {
                     let formatted = num.toFixed(10);
                     formatted = formatted.replace(/\.?0+$/, "") || formatted.slice(0, -9);
                     if (formatted === "-0") formatted = "0";
-                    return formatted;
+                    return formatted
                 }
-
+                
                 const formattedResult = formatResult(result);
                 console.log(`EIGTH RESULT: STRING RESULT: ${formattedResult}`);
 
