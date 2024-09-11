@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     text.innerHTML = "";
     const delay = 300;
     const maxLength = 12;
+    let lastOperation = null;
 
     function addLetter(letter) {
         text.innerHTML += letter;
@@ -86,18 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
         number.addEventListener("click", () => {
             removeActive();
             if (text.innerHTML.length < maxLength) {
-                text.innerHTML += number.textContent.trim()
+                if (text.innerHTML === "-0") {
+                    text.innerHTML = "-" + number.textContent.trim();
+                } else {
+                    text.innerHTML += number.textContent.trim();
+                }
             }
+            lastOperation = null;
         });
     }
 
     document.getElementById("decimal").addEventListener("click", () => {
-
         const content = text.innerHTML;
         const check = content.includes(".");
         if (!check && content.length < maxLength - 1) {
             text.innerHTML += ".";
         }
+        lastOperation = null;
     })
 
     for (const operator of operators) {
@@ -114,11 +120,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
             document.getElementById("decimal").removeAttribute("disabled");
+            lastOperation = null;
         });
     }
 
     document.getElementById("equals").addEventListener("click", () => {
-        callStack.addToStack(Number(text.innerHTML));
+        const currentNumber = text.innerHTML;
+        console.log(`ZERO PRINT: CURRENT NUMBER BEFORE ADDING TO THE STACK: ${currentNumber}`);
+        callStack.addToStack(Number(currentNumber));
         console.log(`FIRST PRINT: CALL STACK: ${callStack.stack}`);
         console.log(`SECOND PRINT: CURRENT NUMBER: ${text.innerHTML}`);
         text.innerHTML = "";
@@ -155,17 +164,22 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`SEVENTH PRINT: RESULT: ${result}`);
 
             if (result !== null) {
-                const strResult = String(result);
-                console.log(`EIGTH RESULT: STRING RESULT: ${strResult}`);
-
-                if (strResult.length > maxLength) {
-                    text.innerHTML = result.toPrecision(maxLength - 1);
-                } else {
-
-                    console.log(`NINTH PRINT: RESULT: ${result} : STRING RESULT: ${strResult}`);
-                    text.innerHTML = result;
-                    console.log(`TENTH PRINT: RESULT: ${result} : DISPLAY: ${text.innerHTML}`);
+                function formatResult(num) {
+                    let formatted = num.toFixed(10);
+                    formatted = formatted.replace(/\.?0+$/, "") || formatted.slice(0, -9);
+                    if (formatted === "-0") formatted = "0";
+                    return formatted;
                 }
+
+                const formattedResult = formatResult(result);
+                console.log(`EIGTH RESULT: STRING RESULT: ${formattedResult}`);
+
+                if (formattedResult.length > maxLength) {
+                    text.innerHTML = Number(formattedResult).toPrecision(maxLength - 1);
+                } else {
+                    text.innerHTML = formattedResult;
+                }
+                console.log(`NINTH PRINT: RESULT: ${result} : DISPLAY: ${text.innerHTML}`);
 
                 for (const number of numbers) {
                     number.setAttribute("disabled", "disabled");
@@ -173,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("decimal").setAttribute("disabled", "disabled");
             }
         }
-
+        lastOperation = "equals";
     });
 
     document.getElementById("clear").addEventListener("click", () => {
@@ -185,20 +199,29 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         document.getElementById("decimal").removeAttribute("disabled");
+        lastOperation = null;
     });
 
     document.getElementById("back").addEventListener("click", () => {
-        const currnetContent = text.innerHTML;
-        text.innerHTML = currnetContent.slice(0, currnetContent.length - 1);
+        const currentContent = text.innerHTML;
+        text.innerHTML = currentContent.slice(0, currentContent.length - 1);
+        lastOperation = null;
     });
 
     document.getElementById("sign").addEventListener("click", () => {
-        const currnetContent = text.innerHTML;
+        let currentContent = text.innerHTML;
 
-        if (currnetContent.charAt(0) === "-") {
-            text.innerHTML = currnetContent.substring(1);
-        } else {
-            text.innerHTML = "-" + currnetContent;
+        if (lastOperation !== "equals" || currentContent === "0" || currentContent === "") { // Remove this to unfix the bug
+            if (currentContent === "0" || currentContent === "") {
+                currentContent = "-";
+            } else if (currentContent === "-") {
+                currentContent = "";
+            } else if (currentContent.charAt(0) === "-") {
+                currentContent = currentContent.substring(1);
+            } else {
+                currentContent = "-" + currentContent;
+            }
+            text.innerHTML = currentContent;
         }
     });
 
