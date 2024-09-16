@@ -1,7 +1,6 @@
 /*
     TODO:
     trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
-    BUG FIX - negative signs missing from calcualtions when using keyboard entry
 */
 
 const calculator = {
@@ -59,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const delay = 300;
     const maxLength = 12;
     let lastOperation = null;
+    let percentMode = false;
 
     const addLetter = (letter) => {
         text.innerHTML += letter;
@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             text.innerHTML += ".";
         }
         lastOperation = null;
+        percentMode = false;
     })
 
     for (const operator of operators) {
@@ -121,15 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             document.getElementById("decimal").removeAttribute("disabled");
             lastOperation = null;
+            percentMode = false;
         });
     }
 
     document.getElementById("equals").addEventListener("click", () => {
         const currentNumber = text.innerHTML;
-        console.log(`ZERO PRINT: CURRENT NUMBER BEFORE ADDING TO THE STACK: ${currentNumber}`);
         callStack.addToStack(Number(currentNumber));
-        console.log(`FIRST PRINT: CALL STACK: ${callStack.stack}`);
-        console.log(`SECOND PRINT: CURRENT NUMBER: ${text.innerHTML}`);
         text.innerHTML = "";
         const ops = ["+", "-", "x", "÷"];
         let result = 0;
@@ -143,25 +142,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     const position = callStack.stack.indexOf(element);
                     const number1 = callStack.stack[position - 1];
                     const number2 = callStack.stack[position + 1];
-                    console.log(`THIRD PRINT: ${number1, number2}`);
 
                     const zeroDivisionCheck = (element === "÷" && (number2 === 0 || number2 === 0.0)) ? true : false;
 
                     if (!zeroDivisionCheck) {
                         result = calculator.operate(number1, number2, element);
-                        console.log(`FOURTH PRINT: RESULT: ${result}`);
                         callStack.stack = callStack.stack.slice(position + 1);
-                        console.log(`FIFTH PRINT: STACK: ${callStack.stack}`);
                         callStack.stack[0] = result;
-                        console.log(`SIXTH PRINT: STACK: ${callStack.stack}`);
                     } else {
                         alert("Whoa there...maths hasn't quite sussed out dividing by zero yet!")
                         result = null;
                     }
                 }
             });
-
-            console.log(`SEVENTH PRINT: RESULT: ${result}`);
 
             if (result !== null) {
 
@@ -171,16 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (formatted === "-0") formatted = "0";
                     return formatted
                 }
-                
+
                 const formattedResult = formatResult(result);
-                console.log(`EIGTH RESULT: STRING RESULT: ${formattedResult}`);
 
                 if (formattedResult.length > maxLength) {
                     text.innerHTML = Number(formattedResult).toPrecision(maxLength - 1);
                 } else {
                     text.innerHTML = formattedResult;
                 }
-                console.log(`NINTH PRINT: RESULT: ${result} : DISPLAY: ${text.innerHTML}`);
 
                 for (const number of numbers) {
                     number.setAttribute("disabled", "disabled");
@@ -189,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         lastOperation = "equals";
+        percentMode = false;
     });
 
     document.getElementById("clear").addEventListener("click", () => {
@@ -201,12 +193,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.getElementById("decimal").removeAttribute("disabled");
         lastOperation = null;
+        percentMode = false;
     });
 
     document.getElementById("back").addEventListener("click", () => {
         const currentContent = text.innerHTML;
         text.innerHTML = currentContent.slice(0, currentContent.length - 1);
         lastOperation = null;
+        percentMode = false;
     });
 
     document.getElementById("sign").addEventListener("click", () => {
@@ -224,7 +218,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             text.innerHTML = currentContent;
         }
+        percentMode = false;
     });
+
+    document.getElementById("percent").addEventListener("click", () => {
+
+        if (lastOperation == "equals") {
+            const currentContent = text.innerHTML;
+            if (!percentMode) {
+                
+                text.innerHTML = currentContent / 100;
+                percentMode = true;
+            } else {
+                text.innerHTML = currentContent * 100;
+                percentMode = false;
+            }
+        }
+    })
 
     document.addEventListener("keydown", (event) => {
 
@@ -245,6 +255,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("clear").click();
         } else if (key === "m") {
             document.getElementById("sign").click();
+        }
+        else if (key === "p") {
+            document.getElementById("percent").click();
         } else {
             const operatorsMap = {
                 "+": "+",
