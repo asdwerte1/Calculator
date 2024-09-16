@@ -227,10 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const currentContent = text.innerHTML;
             if (!percentMode) {
                 
-                text.innerHTML = currentContent / 100;
+                text.innerHTML = currentContent * 100;
                 percentMode = true;
             } else {
-                text.innerHTML = currentContent * 100;
+                text.innerHTML = currentContent / 100;
                 percentMode = false;
             }
         }
