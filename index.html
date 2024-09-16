@@ -8,36 +8,88 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="index.js"></script>
     <title>Calculator</title>
 </head>
 
 <body>
-    <div id="calculator">
-        <div id="display">
-            <p id="display-text" class="orbitron-text"></p>
+    <div class="container-md d-flex flex-row justify-content-around flex-wrap">
+        <div id="calculator">
+            <div id="display">
+                <p id="display-text" class="orbitron-text"></p>
+            </div>
+            <div id="buttons">
+                <button class="calc-button" id="clear">C</button>
+                <button class="calc-button" id="sign">+/-</button>
+                <button class="calc-button" id="percent">%</button>
+                <button class="calc-button" id="back">←</button>
+                <button class="calc-button operator" id="add">
+                    <p>+</p>
+                </button>
+                <button class="calc-button number" id="1">
+                    <p>1</p>
+                </button>
+                <button class="calc-button number" id="2">
+                    <p>2</p>
+                </button>
+                <button class="calc-button number" id="3">
+                    <p>3</p>
+                </button>
+                <button class="calc-button operator" id="subtract">
+                    <p>-</p>
+                </button>
+                <button class="calc-button number" id="4">
+                    <p>4</p>
+                </button>
+                <button class="calc-button number" id="5">
+                    <p>5</p>
+                </button>
+                <button class="calc-button number" id="6">
+                    <p>6</p>
+                </button>
+                <button class="calc-button operator" id="times">
+                    <p>x</p>
+                </button>
+                <button class="calc-button number" id="7">
+                    <p>7</p>
+                </button>
+                <button class="calc-button number" id="8">
+                    <p>8</p>
+                </button>
+                <button class="calc-button number" id="9">
+                    <p>9</p>
+                </button>
+                <button class="calc-button operator" id="divide">
+                    <p>&divide;</p>
+                </button>
+                <button class="calc-button" id="decimal">
+                    <p>.</p>
+                </button>
+                <button class="calc-button number" id="0">
+                    <p>0</p>
+                </button>
+                <button class="calc-button" id="equals">
+                    <p>=</p>
+                </button>
+            </div>
         </div>
-        <div id="buttons">
-            <button class="calc-button" id="clear">C</button>
-            <button class="calc-button" id="sign">+/-</button>
-            <button class="calc-button" id="percent">%</button>
-            <button class="calc-button" id="back">←</button>
-            <button class="calc-button operator" id="add"><p>+</p></button>
-            <button class="calc-button number" id="1"><p>1</p></button>
-            <button class="calc-button number" id="2"><p>2</p></button>
-            <button class="calc-button number" id="3"><p>3</p></button>
-            <button class="calc-button operator"id="subtract"><p>-</p></button>
-            <button class="calc-button number" id="4"><p>4</p></button>
-            <button class="calc-button number" id="5"><p>5</p></button>
-            <button class="calc-button number" id="6"><p>6</p></button>
-            <button class="calc-button operator" id="times"><p>x</p></button>
-            <button class="calc-button number" id="7"><p>7</p></button>
-            <button class="calc-button number" id="8"><p>8</p></button>
-            <button class="calc-button number" id="9"><p>9</p></button>
-            <button class="calc-button operator" id="divide"><p>&divide;</p></button>
-            <button class="calc-button" id="decimal"><p>.</p></button>
-            <button class="calc-button number" id="0"><p>0</p></button>
-            <button class="calc-button" id="equals"><p>=</p></button>
+        <div id="special">
+            <div id="spec-btns" class="d-flex flex-row justify-content-around flex-wrap">
+                <button class="calc-button spec-button">sin</button>
+                <button class="calc-button spec-button">cos</button>
+                <button class="calc-button spec-button">tan</button>
+                <button class="calc-button spec-button">asin</button>
+                <button class="calc-button spec-button">acos</button>
+                <button class="calc-button spec-button">atan</button>
+                <button class="calc-button spec-button">log</button>
+                <button class="calc-button spec-button">ln</button>
+                <button class="calc-button spec-button">&#8730;</button>
+                <button class="calc-button spec-button">x!</button>
+                <button class="calc-button spec-button">&pi;</button>
+                <button class="calc-button spec-button">e</button>
+            </div>
         </div>
     </div>
 </body>

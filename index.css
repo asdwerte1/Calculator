@@ -27,6 +27,7 @@ body {
     flex-direction: column;
     align-items: stretch;
     padding-bottom: 20px;
+    max-width: 600px;
 }
 
 /* Screen area */
@@ -105,4 +106,20 @@ body {
     background-color: #00c936;
     color: #f2f2f2;
     font-size: 2em;
+}
+
+/* Trig buttons --------------- */
+#special {
+    background-color: #cff4fa;
+    border: solid 5px #333;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 20px;
+    max-width: 600px;
+}
+
+.spec-button {
+    width: 100px;
 }
