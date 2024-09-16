@@ -1,7 +1,6 @@
 /*
     TODO:
     trim trailing zeros from decimal numbers --> issue noticed but cannot recreate
-    BUG FIX - negative signs missing from calcualtions when using keyboard entry
 */
 
 const calculator = {
